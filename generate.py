@@ -1,16 +1,15 @@
-"""
-# GitLit
-Github Literature generated from popular up-and-coming projects. 
-
-Initial Proof of Concept:
-- Get all files from a repo recursively
-- Invoke GPT-4 with the repo's contents as input
-- generate an article based on the repo's contents
-"""
-
 import requests
 from llm_blocks import chat_utils
 import os
+
+template = """
+You are a highly respected software engineering blogger. Your niche is writing about the latest and greatest open source projects. Ambitious developers look to your blog for inspiration, guidance, mentorship, and learning.
+
+Here is the code from a project you are reviewing:
+{repo_str}
+
+Write an educational article taking a deep dive on this project. Format in markdown.
+"""
 
 
 def get_repo_content(user, repo, path="", token="", exclude_extensions=[]):
@@ -36,7 +35,7 @@ def get_repo_content(user, repo, path="", token="", exclude_extensions=[]):
 
 def main():
     user = "voynow"
-    repo = "jamievoynow.com"
+    repo = "turbo-docs"
     token = os.environ["GITHUB_TOKEN"]
     exclude_extensions = [".jpg"]
 
@@ -45,14 +44,11 @@ def main():
     )
     repo_str = "\n\n".join([f"{path}\n\n{content}" for path, content in result.items()])
 
-    template = """
-    Write an article on the following repo describing its technical details for learning purposes:
-
-    {repo_str}
-    """
     article_chain = chat_utils.GenericChain(template=template, model_name="gpt-4")
     response = article_chain(repo_str=repo_str)
-    print(response["text"])
+
+    with open("output.md", "w") as f:
+        f.write(response["text"])
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 # GitLit: GitHub Literature Generator 📚
 
-![GitHub](https://img.shields.io/github/license/voynow/jamievoynow.com)
+![GitHub](https://img.shields.io/github/license/voynow/GitLit.com)
 ![PyPI](https://img.shields.io/pypi/v/GitLit)
-![GitHub issues](https://img.shields.io/github/issues/voynow/jamievoynow.com)
-![GitHub forks](https://img.shields.io/github/forks/voynow/jamievoynow.com)
-![GitHub stars](https://img.shields.io/github/stars/voynow/jamievoynow.com)
+![GitHub issues](https://img.shields.io/github/issues/voynow/GitLit.com)
+![GitHub forks](https://img.shields.io/github/forks/voynow/GitLit.com)
+![GitHub stars](https://img.shields.io/github/stars/voynow/GitLit.com)
 
 GitLit is a Python-based tool that generates literature from popular up-and-coming projects on GitHub. It uses GPT-4 to create articles based on the content of a repository. This tool is perfect for developers who want to understand the technical details of a project in an easy-to-read format. 🚀
 
@@ -15,13 +15,6 @@ GitLit is a Python-based tool that generates literature from popular up-and-comi
 - [Contributing](#contributing)
 - [License](#license)
 
-## Installation 💻
-
-To install GitLit, simply use pip:
-
-```bash
-pip install GitLit
-```
 
 ## Usage 🛠️
 
@@ -53,4 +46,4 @@ GitLit is licensed under the MIT License. See [LICENSE](LICENSE) for more inform
 
 ## Contact 📧
 
-If you have any questions, feel free to reach out to Jamie Voynow at [jamievoynow.com](https://www.jamievoynow.com/).
+If you have any questions, feel free to reach out to Jamie Voynow at [jamievoynow.com](https://jamie-voynow.herokuapp.com/).
