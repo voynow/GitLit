@@ -1,56 +1,70 @@
-# Turbo Docs: Automating Documentation with OpenAI's GPT Models
+# Deep Dive into git2doc: A Powerful Python Library for Converting Git Repositories into Documents
 
-Documentation is a crucial part of any software development process. It helps developers understand the codebase, makes it easier for users to use the software, and ensures that knowledge about the code is not lost over time. However, writing and maintaining documentation can be a time-consuming task. This is where Turbo Docs comes in.
+In this article, we will be exploring an open-source project called `git2doc`. This Python library is designed to convert git repositories into documents, making it easier to understand and work with large codebases. 
 
-Turbo Docs is an open-source Python package that automates the generation of documentation for Python projects. It leverages the power of OpenAI's GPT models to create concise and informative documentation, making it easier for developers to understand the code and for users to use the software.
+## What is git2doc?
 
-## Why Use Turbo Docs?
+`git2doc` is a Python library that simplifies the process of understanding large codebases by converting git repositories into documents. This allows developers to easily search, analyze, and understand the codebase. The library is particularly useful when working with large repositories, as it can be overwhelming to understand the structure and content of the code.
 
-Turbo Docs offers several benefits over manual documentation:
+## How to Install git2doc
 
-- **Save time**: Turbo Docs automatically generates documentation for your Python functions, so you can focus on writing code.
-- **Stay up-to-date**: Turbo Docs can be easily integrated into your development workflow, ensuring your documentation is always current.
-- **High-quality documentation**: Turbo Docs leverages the power of OpenAI's GPT models to generate concise and informative documentation.
-- **Customizable**: You can choose between GPT-3.5 Turbo and GPT-4 models, and even provide your own templates for generating documentation.
-
-## How Does Turbo Docs Work?
-
-Turbo Docs uses a combination of Python's built-in `ast` module and OpenAI's GPT models to generate documentation. The `ast` module is used to parse the Python code and identify functions, while the GPT models are used to generate the actual documentation.
-
-The main functions of Turbo Docs are `generate_docs` and `docs`. The `generate_docs` function generates and writes documentation for a given function using the specified model and template. The `docs` function parses the code in a given repository, identifies functions within Python files, and generates documentation for each function using a specified model and template.
-
-In addition to generating documentation for individual functions, Turbo Docs can also generate a README.md file for your project using the `readme` function. This function selects between GPT-3.5 Turbo and GPT-4, allows for template override, and generates a README.md file for the given repository.
-
-## Using Turbo Docs
-
-To use Turbo Docs, you first need to install it using pip:
+Installation of `git2doc` is straightforward and can be done using pip, the Python package installer. Here is the command to install `git2doc`:
 
 ```bash
-pip install turbo_docs
+pip install git2doc
 ```
 
-Once installed, you can generate documentation for your Python project by navigating to your project's root directory and running:
+## How to Use git2doc
 
-```bash
-turbo_docs --docs
+`git2doc` provides several functionalities that can be used to fetch repositories, load repository data, and write data to Parquet files.
+
+### Fetching Repositories
+
+To fetch repositories, you can use the `get_repos_orchestrator` function. This function allows you to specify the number of repositories to fetch, the number of days to look back, and the language to filter by.
+
+```python
+from git2doc import get_repos_orchestrator
+
+repos = get_repos_orchestrator(
+    n_repos=10,
+    last_n_days=30,
+    language="Python"
+)
 ```
 
-To generate a README.md file for your project, run:
+### Loading Repository Data
 
-```bash
-turbo_docs --readme
+To load repository data, you can use the `pull_code_from_repo` function. This function allows you to specify the repository URL and the branch to pull from.
+
+```python
+from git2doc import pull_code_from_repo
+
+repo_data = pull_code_from_repo(
+    repo="https://github.com/voynow/git2doc",
+    branch="main"
+)
 ```
 
-For more options, run:
+### Writing Data to Parquet Files
 
-```bash
-turbo_docs --help
+To write data to Parquet files, you can use the `pipeline_fetch_and_load` function. This function allows you to specify the number of repositories to fetch, the number of days to look back, the language to filter by, and the batch size for writing.
+
+```python
+from git2doc import pipeline_fetch_and_load
+
+pipeline_fetch_and_load(
+    n_repos=1000,
+    last_n_days=365,
+    language="Python",
+    write_batch_size=100,
+    delete=True,
+)
 ```
 
-## Contributing to Turbo Docs
+## Contributing to git2doc
 
-Turbo Docs is an open-source project, and contributions are welcome! If you have any improvements or suggestions, feel free to submit a pull request or open an issue to discuss them.
+Contributions to `git2doc` are welcome! You can contribute by submitting a pull request or opening an issue on GitHub. The project is licensed under the MIT License.
 
 ## Conclusion
 
-Turbo Docs is a powerful tool that can save developers a lot of time and effort. By automating the process of generating documentation, it allows developers to focus on what they do best: writing code. If you're a Python developer, give Turbo Docs a try - it might just revolutionize your workflow!
+`git2doc` is a powerful tool that can greatly simplify the process of understanding large codebases. By converting git repositories into documents, it allows developers to easily search, analyze, and understand the codebase. Whether you are a seasoned developer or a beginner, `git2doc` can be a valuable addition to your toolkit.
