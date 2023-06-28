@@ -61,5 +61,6 @@ EXCLUDE_EXTENSIONS = [
     ".train",
     ".stl",
     ".kicad_pcb",
-    ".mp3"
+    ".mp3",
+    ".pdf",
 ]

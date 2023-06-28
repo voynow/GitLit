@@ -19,6 +19,8 @@ def get_repo_content(user, repo, path=""):
             files_dict.update(get_repo_content(user, repo, file["path"]))
 
         elif not any(file["name"].endswith(ext) for ext in config.EXCLUDE_EXTENSIONS):
+            if file["size"] == 0 and file['download_url'] is None:
+                continue
             file_response = requests.get(file["download_url"], headers=headers)
             file_response.raise_for_status()
 
