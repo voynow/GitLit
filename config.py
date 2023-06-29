@@ -63,4 +63,29 @@ EXCLUDE_EXTENSIONS = [
     ".kicad_pcb",
     ".mp3",
     ".pdf",
+    ".npy"
 ]
+
+GH_GQL_QUERY = """
+    query RepoFiles($owner: String!, $name: String!, $branch: String!) {
+    repository(owner: $owner, name: $name) {
+        object(expression: $branch) {
+        ... on Tree {
+            entries {
+            name
+            
+            type
+            
+            object {
+                ... on Blob {
+                byteSize
+                
+                text
+                }
+            }
+            }
+        }
+        }
+    }
+    }
+"""
