@@ -1,56 +1,38 @@
-# Turbo Docs: Automating Documentation with OpenAI's GPT Models
+# Deep Dive into the GPT-Engineer Open Source Project
 
-Documentation is a crucial part of any software development process. It helps developers understand the codebase, makes it easier for users to use the software, and ensures that knowledge about the code is not lost over time. However, writing and maintaining documentation can be a time-consuming task. This is where Turbo Docs comes in.
+GPT-Engineer is an open-source project that leverages the power of AI to generate code based on a given prompt. It's designed to be flexible and easy to adapt, allowing developers to extend its functionality and train the AI to generate code in a specific style. In this article, we'll take a deep dive into the GPT-Engineer project, exploring its structure, functionality, and how it can be used.
 
-Turbo Docs is an open-source Python package that automates the generation of documentation for Python projects. It leverages the power of OpenAI's GPT models to create concise and informative documentation, making it easier for developers to understand the code and for users to use the software.
+## Project Structure
 
-## Why Use Turbo Docs?
+The GPT-Engineer project is organized into several key files and directories, each serving a specific purpose:
 
-Turbo Docs offers several benefits over manual documentation:
+- `.github`: This directory contains files related to GitHub workflows and actions.
+- `.gitignore`: This file specifies which files and directories should be ignored by Git.
+- `.pre-commit-config.yaml`: This file configures pre-commit hooks, which are scripts that run automatically every time a commit is made.
+- `DISCLAIMER.md`: This file contains a disclaimer about the use of the GPT-Engineer software.
+- `LICENSE`: This file contains the MIT License under which the GPT-Engineer software is distributed.
+- `MANIFEST.in`: This file instructs the Python packaging software to include certain files in the distribution.
+- `Makefile`: This file contains a set of directives used by the `make` build automation tool.
+- `README.md`: This file provides an overview of the project, including how to install and use the software.
+- `ROADMAP.md`: This file outlines the future plans for the project.
+- `TERMS_OF_USE.md`: This file outlines the terms of use for the GPT-Engineer software.
+- `benchmark`: This directory contains files related to benchmarking the performance of the software.
+- `gpt_engineer`: This directory contains the main Python code for the project.
+- `projects`: This directory contains example projects that demonstrate how to use the GPT-Engineer software.
+- `pyproject.toml`: This file contains metadata about the project and manages dependencies.
+- `scripts`: This directory contains various utility scripts.
+- `tests`: This directory contains test files to ensure the software is working as expected.
 
-- **Save time**: Turbo Docs automatically generates documentation for your Python functions, so you can focus on writing code.
-- **Stay up-to-date**: Turbo Docs can be easily integrated into your development workflow, ensuring your documentation is always current.
-- **High-quality documentation**: Turbo Docs leverages the power of OpenAI's GPT models to generate concise and informative documentation.
-- **Customizable**: You can choose between GPT-3.5 Turbo and GPT-4 models, and even provide your own templates for generating documentation.
+## Functionality
 
-## How Does Turbo Docs Work?
+GPT-Engineer is designed to generate an entire codebase based on a given prompt. It uses a series of steps, defined in `steps.py`, to interact with the GPT-4 AI model and generate the desired code. Each step has its communication history with GPT-4 stored in a logs folder, and can be rerun using `scripts/rerun_edited_message_logs.py`.
 
-Turbo Docs uses a combination of Python's built-in `ast` module and OpenAI's GPT models to generate documentation. The `ast` module is used to parse the Python code and identify functions, while the GPT models are used to generate the actual documentation.
+The AI agent's "identity" can be customized by editing the files in the `preprompts` folder. This allows developers to train the agent to remember things between projects and generate code in a specific style.
 
-The main functions of Turbo Docs are `generate_docs` and `docs`. The `generate_docs` function generates and writes documentation for a given function using the specified model and template. The `docs` function parses the code in a given repository, identifies functions within Python files, and generates documentation for each function using a specified model and template.
+## Usage
 
-In addition to generating documentation for individual functions, Turbo Docs can also generate a README.md file for your project using the `readme` function. This function selects between GPT-3.5 Turbo and GPT-4, allows for template override, and generates a README.md file for the given repository.
-
-## Using Turbo Docs
-
-To use Turbo Docs, you first need to install it using pip:
-
-```bash
-pip install turbo_docs
-```
-
-Once installed, you can generate documentation for your Python project by navigating to your project's root directory and running:
-
-```bash
-turbo_docs --docs
-```
-
-To generate a README.md file for your project, run:
-
-```bash
-turbo_docs --readme
-```
-
-For more options, run:
-
-```bash
-turbo_docs --help
-```
-
-## Contributing to Turbo Docs
-
-Turbo Docs is an open-source project, and contributions are welcome! If you have any improvements or suggestions, feel free to submit a pull request or open an issue to discuss them.
+To use GPT-Engineer, you first need to install it using pip. You can then create an empty folder and fill in the `prompt` file with your desired code generation prompt. Running the `gpt-engineer` command with the path to your project folder will then generate the codebase.
 
 ## Conclusion
 
-Turbo Docs is a powerful tool that can save developers a lot of time and effort. By automating the process of generating documentation, it allows developers to focus on what they do best: writing code. If you're a Python developer, give Turbo Docs a try - it might just revolutionize your workflow!
+GPT-Engineer is a powerful tool for automating code generation. Its flexible design and easy-to-use interface make it a valuable asset for any developer's toolkit. Whether you're looking to speed up your development process, generate boilerplate code, or experiment with AI-driven development, GPT-Engineer is definitely worth checking out.

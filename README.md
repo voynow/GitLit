@@ -1,49 +1,57 @@
-# GitLit: GitHub Literature Generator 📚
+# GitLit :octocat:
 
-![GitHub](https://img.shields.io/github/license/voynow/GitLit.com)
-![PyPI](https://img.shields.io/pypi/v/GitLit)
-![GitHub issues](https://img.shields.io/github/issues/voynow/GitLit.com)
-![GitHub forks](https://img.shields.io/github/forks/voynow/GitLit.com)
-![GitHub stars](https://img.shields.io/github/stars/voynow/GitLit.com)
+GitLit is a powerful Python tool that generates informative articles about trending GitHub repositories. It leverages the GitHub API to fetch the latest and most popular repositories, and then uses a language model to write an in-depth analysis of the project. 
 
-GitLit is a Python-based tool that generates literature from popular up-and-coming projects on GitHub. It uses GPT-4 to create articles based on the content of a repository. This tool is perfect for developers who want to understand the technical details of a project in an easy-to-read format. 🚀
+This tool is perfect for technical writers, software reviewers, and anyone interested in staying up-to-date with the latest trends in open-source software development.
 
-## Table of Contents 📖
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
+[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/issues/)
+[![GitHub issues-closed](https://img.shields.io/github/issues-closed/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/issues?q=is%3Aissue+is%3Aclosed)
+
+## :book: Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
+## :hammer_and_wrench: Installation
 
-## Usage 🛠️
-
-To use GitLit, you need to provide the username and repository name. You can also exclude certain file extensions. Here is an example:
-
-```python
-import os
-from GitLit import get_repo_content
-
-user = "voynow"
-repo = "jamievoynow.com"
-token = os.environ["GITHUB_TOKEN"]
-exclude_extensions = ['.jpg']
-
-result = get_repo_content(
-    user, repo, token=token, exclude_extensions=exclude_extensions
-)
+```bash
+git clone https://github.com/username/gitlit.git
+cd gitlit
+pip install -r requirements.txt
 ```
 
-This will return a dictionary with all the files in the repository (excluding '.jpg' files) and their content.
+## :computer: Usage
 
-## Contributing 🤝
+The main function of GitLit is `generate_article()`, which fetches trending repositories and generates an article about them. Here's how you can use it:
 
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) before getting started.
+```python
+from git_lit import generate
 
-## License 📄
+generate.generate_article()
+```
 
-GitLit is licensed under the MIT License. See [LICENSE](LICENSE) for more information.
+This will create an `output.md` file in your current directory with the generated article.
 
-## Contact 📧
+## :handshake: Contributing
 
-If you have any questions, feel free to reach out to Jamie Voynow at [jamievoynow.com](https://jamie-voynow.herokuapp.com/).
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
+
+## :page_with_curl: License
+
+GitLit is licensed under the MIT License. See [LICENSE](LICENSE) for more details.
+
+## :email: Contact
+
+For any queries or suggestions, please open an issue on GitHub. We'd love to hear from you!
+
+## :star2: Acknowledgements
+
+Thanks to all the contributors who have helped make GitLit a reality!
+
+## :clap: Support
+
+If you like GitLit, please give it a star on GitHub! Your support is greatly appreciated.
