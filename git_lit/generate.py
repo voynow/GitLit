@@ -1,4 +1,4 @@
-import config
+import git_lit.config as config
 from datetime import datetime, timedelta
 import json
 from llm_blocks import chat_utils

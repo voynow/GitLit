@@ -1,4 +1,6 @@
 ignore = [
     ".git",
-    "venv"
+    "venv",
+    "__pycache__",
+    ".env",
 ]
