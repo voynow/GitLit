@@ -77,7 +77,6 @@ def search_for_repo(n_repos=50, last_n_days=90):
         repo_data[key]["write_date"] = datetime.now().strftime("%Y-%m-%d")
         repo_data[key]["article_publish_date"] = ""
 
-    for repo in repos:
         repo_content = get_repo_content(
             user=repo["owner"]["login"],
             repo=repo["name"],
