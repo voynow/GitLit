@@ -1,13 +1,12 @@
 import git_lit.config as config
 from datetime import datetime, timedelta
-import json
 from llm_blocks import chat_utils
 import requests
 import tiktoken
 
 
 def query_github_trending(n_repos, last_n_days, language=None):
-    """ """
+    """Query GitHub for trending repos"""
     url = "https://api.github.com/search/repositories"
     headers = {
         "Accept": "application/vnd.github.v3+json",
@@ -33,27 +32,30 @@ def query_github_trending(n_repos, last_n_days, language=None):
     return data.get("items", [])
 
 
-def get_repo_content(user, repo, branch):
-    """Get the content of a GitHub repo"""
-    headers = {
-        "Authorization": f"Bearer {config.GITHUB_TOKEN}",
-        "Content-Type": "application/json",
-    }
-    variables = {
-        "owner": user,
-        "name": repo,
-        "branch": branch + ":",
-    }
-    response = requests.post(
-        "https://api.github.com/graphql",
-        headers=headers,
-        json={
-            "query": config.GH_GQL_QUERY,
-            "variables": json.dumps(variables),
-        },
-    )
-    response.raise_for_status()
-    return response.json()
+def get_repo_content(user, repo, path=""):
+    """Recursively get all files in a repo"""
+    headers = {"Authorization": f"token {config.GITHUB_TOKEN}"}
+    url = f"https://api.github.com/repos/{user}/{repo}/contents/{path}"
+    repo_repsone = requests.get(url, headers=headers)
+    repo_repsone.raise_for_status()
+
+    files_dict = {}
+    for file in repo_repsone.json():
+        if file["type"] == "dir":
+            files_dict.update(get_repo_content(user, repo, file["path"]))
+
+        elif not any(file["name"].endswith(ext) for ext in config.EXCLUDE_EXTENSIONS):
+            if file["size"] == 0 and file["download_url"] is None:
+                continue
+            file_response = requests.get(file["download_url"], headers=headers)
+            file_response.raise_for_status()
+
+            try:
+                files_dict[file["path"]] = file_response.content.decode("utf-8")
+            except UnicodeDecodeError:
+                print(f"Skipping file {file['path']} due to UnicodeDecodeError")
+
+    return files_dict
 
 
 def num_tokens_from_string(string: str, encoding_name: str) -> int:
@@ -80,7 +82,6 @@ def search_for_repo(n_repos=50, last_n_days=90):
         repo_content = get_repo_content(
             user=repo["owner"]["login"],
             repo=repo["name"],
-            branch=repo["default_branch"],
         )
         repo_str = "\n\n".join(
             [f"{path}\n\n{content}" for path, content in repo_content.items()]
