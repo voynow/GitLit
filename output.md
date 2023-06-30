@@ -1,38 +1,32 @@
-# Deep Dive into the GPT-Engineer Open Source Project
+# FableForge: An Open Source Project for Generating Picture Books
 
-GPT-Engineer is an open-source project that leverages the power of AI to generate code based on a given prompt. It's designed to be flexible and easy to adapt, allowing developers to extend its functionality and train the AI to generate code in a specific style. In this article, we'll take a deep dive into the GPT-Engineer project, exploring its structure, functionality, and how it can be used.
+FableForge is an innovative open source project that allows users to generate a picture book from a single prompt. This project leverages the power of OpenAI's new function calling and Replicate's API for Stable Diffusion to generate images and corresponding prompts. All generated images and prompts are stored in Deep Lake, a cloud-based storage solution.
 
 ## Project Structure
 
-The GPT-Engineer project is organized into several key files and directories, each serving a specific purpose:
+The project is structured into several Python files, each serving a specific purpose:
 
-- `.github`: This directory contains files related to GitHub workflows and actions.
-- `.gitignore`: This file specifies which files and directories should be ignored by Git.
-- `.pre-commit-config.yaml`: This file configures pre-commit hooks, which are scripts that run automatically every time a commit is made.
-- `DISCLAIMER.md`: This file contains a disclaimer about the use of the GPT-Engineer software.
-- `LICENSE`: This file contains the MIT License under which the GPT-Engineer software is distributed.
-- `MANIFEST.in`: This file instructs the Python packaging software to include certain files in the distribution.
-- `Makefile`: This file contains a set of directives used by the `make` build automation tool.
-- `README.md`: This file provides an overview of the project, including how to install and use the software.
-- `ROADMAP.md`: This file outlines the future plans for the project.
-- `TERMS_OF_USE.md`: This file outlines the terms of use for the GPT-Engineer software.
-- `benchmark`: This directory contains files related to benchmarking the performance of the software.
-- `gpt_engineer`: This directory contains the main Python code for the project.
-- `projects`: This directory contains example projects that demonstrate how to use the GPT-Engineer software.
-- `pyproject.toml`: This file contains metadata about the project and manages dependencies.
-- `scripts`: This directory contains various utility scripts.
-- `tests`: This directory contains test files to ensure the software is working as expected.
+- `api_utils.py`: Contains the `BuildBook` class that handles the generation of the book text and images.
+- `deep_lake_utils.py`: Contains the `SaveToDeepLake` class that handles saving the generated images and prompts to Deep Lake.
+- `main.py`: The main script that runs the application.
+- `pdf_gen_utils.py`: Contains functions for generating the final PDF of the picture book.
+- `prompts.py`: Contains the prompts used for generating the book text and images.
 
-## Functionality
+## Key Features
 
-GPT-Engineer is designed to generate an entire codebase based on a given prompt. It uses a series of steps, defined in `steps.py`, to interact with the GPT-4 AI model and generate the desired code. Each step has its communication history with GPT-4 stored in a logs folder, and can be rerun using `scripts/rerun_edited_message_logs.py`.
+FableForge offers several key features:
 
-The AI agent's "identity" can be customized by editing the files in the `preprompts` folder. This allows developers to train the agent to remember things between projects and generate code in a specific style.
+- **Book Generation**: FableForge generates a picture book based on a single user-provided prompt. The book is generated in a PDF format, making it easy to download and share.
+- **Image Generation**: The project uses Replicate's API for Stable Diffusion to generate images based on the book text. The images are then downloaded and stored for use in the final PDF.
+- **Deep Lake Integration**: FableForge integrates with Deep Lake, allowing users to store all generated images and corresponding prompts in the cloud. This makes it easy to access and manage the generated data.
+- **Customizable Styles**: Users can select from a variety of styles for their picture book, including Impressionism, Cubism, Surrealism, Japanese Ukiyo-e, Art Nouveau, Folk Art, and Expressionism.
 
-## Usage
+## Installation and Usage
 
-To use GPT-Engineer, you first need to install it using pip. You can then create an empty folder and fill in the `prompt` file with your desired code generation prompt. Running the `gpt-engineer` command with the path to your project folder will then generate the codebase.
+To use FableForge, users need to clone the repository and install the requirements specified in `requirements.txt`. Users also need to set up their OpenAI and Replicate API keys in `keys.env`. To save images and prompts, users need to set up their Activeloop Deep Lake token and dataset path in `keys.env`.
+
+Once the setup is complete, users can start the application by running `streamlit run main.py`.
 
 ## Conclusion
 
-GPT-Engineer is a powerful tool for automating code generation. Its flexible design and easy-to-use interface make it a valuable asset for any developer's toolkit. Whether you're looking to speed up your development process, generate boilerplate code, or experiment with AI-driven development, GPT-Engineer is definitely worth checking out.
+FableForge is a powerful tool for generating picture books. It leverages the power of OpenAI and Replicate's API to generate engaging and visually appealing books based on a single prompt. With its Deep Lake integration, FableForge also makes it easy to store and manage the generated data. Whether you're an author looking for inspiration or a parent wanting to create a unique story for your child, FableForge is a great tool to explore.

@@ -63,10 +63,19 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
     return num_tokens
 
 
-def generate_article():
-    """Generate article from a GitHub repo"""
+def search_for_repo(n_repos=50, last_n_days=90):
+    repos = query_github_trending(
+        n_repos=n_repos, last_n_days=last_n_days, language="python"
+    )
 
-    repos = query_github_trending(n_repos=50, last_n_days=90, language="python")
+    repo_data = {}
+    for repo in repos:
+        key = f'{repo["name"]}/{repo["owner"]["login"]}'
+        
+        repo_data[key] = {}
+        repo_data[key] = repo
+        repo_data[key]["write_date"] = datetime.now().strftime("%Y-%m-%d")
+        repo_data[key]["article_publish_date"] = ""
 
     for repo in repos:
         repo_content = get_repo_content(
@@ -77,17 +86,17 @@ def generate_article():
         repo_str = "\n\n".join(
             [f"{path}\n\n{content}" for path, content in repo_content.items()]
         )
-        if num_tokens_from_string(repo_str, "cl100k_base") < 6000:
-            break
+        num_tokens = num_tokens_from_string(repo_str, "cl100k_base")
+        repo_data[key]["num_tokens"] = num_tokens
+        print(repo_data[key]['html_url'], repo_data[key]['num_tokens'])
+
+    return repo_data
+
+
+def generate_article(repo_str):
+    """Generate article from a GitHub repo"""
 
     article_chain = chat_utils.GenericChain(
         template=config.TEMPLATE, model_name="gpt-4"
     )
-    response = article_chain(repo_str=repo_str)
-
-    with open("output.md", "w", encoding="utf-8") as output_file:
-        output_file.write(response["text"])
-
-
-if __name__ == "__main__":
-    generate_article()
+    return article_chain(repo_str=repo_str)
