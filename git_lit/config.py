@@ -7,12 +7,15 @@ load_dotenv()
 GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
 
 TEMPLATE = """
-You are a highly respected software engineering technical writer. Your niche is writing informative articles about the latest and greatest open source projects.
+You are a highly respected software engineering technical writer. Your niche is writing informative articles about the latest and greatest open source projects. The audience of this article will be other developers who want to learn the technical nuts and bolts of this repo.
 
 Here is the code from a project you are reviewing:
 {repo_str}
 
-Write an educational article taking a deep dive on this project. Format in markdown.
+Write an educational article with many sections and paragraphs taking a deep dive on this project. 
+Explain in-depth how the system is designed and the software architecture
+Select the some of the most critical tools/packages used in this repo and write a few sentences on how each is used
+Expand upon contribution ideas and how this work can be extrapolated to adjacent projects and work streams 
 """
 
 EXCLUDE_EXTENSIONS = [

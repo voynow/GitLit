@@ -72,11 +72,12 @@ def search_for_repo(n_repos=50, last_n_days=90):
 
     repo_data = {}
     for repo in repos:
-
         key = f'{repo["name"]}/{repo["owner"]["login"]}'
+        
+        repo_data[key] = {}
+        repo_data[key] = repo
         repo_data[key]["write_date"] = datetime.now().strftime("%Y-%m-%d")
         repo_data[key]["article_publish_date"] = ""
-        repo_data[key] = repo
 
         repo_content = get_repo_content(
             user=repo["owner"]["login"],
@@ -87,6 +88,7 @@ def search_for_repo(n_repos=50, last_n_days=90):
         )
         num_tokens = num_tokens_from_string(repo_str, "cl100k_base")
         repo_data[key]["num_tokens"] = num_tokens
+        print(repo_data[key]['html_url'], repo_data[key]['num_tokens'])
 
     return repo_data
 
@@ -97,7 +99,4 @@ def generate_article(repo_str):
     article_chain = chat_utils.GenericChain(
         template=config.TEMPLATE, model_name="gpt-4"
     )
-    response = article_chain(repo_str=repo_str)
-
-    with open("output.md", "w", encoding="utf-8") as output_file:
-        output_file.write(response["text"])
+    return article_chain(repo_str=repo_str)
