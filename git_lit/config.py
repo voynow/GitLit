@@ -6,16 +6,16 @@ load_dotenv()
 
 GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
 
-TEMPLATE = """
+OUTLINE_TEMPLATE = """
 You are a highly respected software engineering technical writer. Your niche is writing informative articles about the latest and greatest open source projects. The audience of this article will be other developers who want to learn the technical nuts and bolts of this repo.
 
 Here is the code from a project you are reviewing:
 {repo_str}
 
-Write an outline for an educational article taking a deep dive on this project. The article will talk about system architecture, design decisions, the technical details of the code,s etc.
+Write an outline for an educational article taking a deep dive on this project. The article will talk about system architecture, design decisions, the technical details of the code, and etc.
 """
 
-SECONDARY_TEMPLATE = """
+ARTICLE_TEMPLATE = """
 You are a highly respected software engineering technical writer. Your niche is writing informative articles about the latest and greatest open source projects. The audience of this article will be other developers who want to learn the technical nuts and bolts of this repo.
 
 Here is the code from a project you are reviewing:
@@ -24,18 +24,8 @@ Here is the code from a project you are reviewing:
 Here is an outline for an educational article with many sections and paragraphs taking a deep dive on this project:
 {outline}
 
-Write the article based on the outline using all of your software technical writing expertise to make the article as informative and educational as possible. Expand upon the code/outline with details, code examples, and explanations. Feel free to add more sections and paragraphs as you see fit. Restructure the article to improve the user experience. Format in markdown.
+Write the article based on the outline using all of your software technical writing expertise to make the article as informative and educational as possible. Expand upon the code/outline with details, code examples, and explanations. Focus on what makes the repo unique rather than things like .gitignore or setup.py. Feel free to add more sections and paragraphs as you see fit. Restructure the article to improve the user experience. Format in markdown.
 """
-
-TERTIARY_TEMPLATE = """
-You are a highly respected software engineering technical writer. Your niche is writing informative articles about the latest and greatest open source projects. The audience of this article will be other developers who want to learn the technical nuts and bolts of this repo.
-
-Here is your first draft of an article:
-{article}
-
-Create a final draft, using all of your software technical writing expertise to make the article as informative and educational as possible. Expand upon the article with more details, examples, and explanations. Feel free to add more sections and paragraphs as you see fit. Restructure the article to improve the user experience.
-"""
-
 EXCLUDE_EXTENSIONS = [
     ".ipynb",
     ".yaml",
