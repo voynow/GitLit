@@ -66,6 +66,7 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
 
 
 def search_for_repo(n_repos=50, last_n_days=90):
+    """Search for repos on GitHub and return repo data"""
     repos = query_github_trending(
         n_repos=n_repos, last_n_days=last_n_days, language="python"
     )
@@ -94,9 +95,24 @@ def search_for_repo(n_repos=50, last_n_days=90):
 
 
 def generate_article(repo_str):
-    """Generate article from a GitHub repo"""
-
-    article_chain = chat_utils.GenericChain(
-        template=config.TEMPLATE, model_name="gpt-4"
+    """
+    Combine two LLM-blocks chains in the follwing workflow:
+    1. Outline: generate outline from repo code
+    2. Article: generate article from outline and repo code
+    """
+    # create outline for article
+    outline_chain = chat_utils.GenericChain(
+        template=config.OUTLINE_TEMPLATE, model_name="gpt-4"
     )
-    return article_chain(repo_str=repo_str)
+    outline = outline_chain(repo_str=repo_str)
+
+    # Generate article from outline and repo code
+    article_chain = chat_utils.GenericChain(
+        template=config.ARTICLE_TEMPLATE, model_name="gpt-4"
+    )
+    article = article_chain(repo_str=repo_str, outline=outline['text'])
+
+    # join logs from chains
+    consolidated_logs = outline_chain.logs + article_chain.logs
+
+    return article['text'], consolidated_logs
